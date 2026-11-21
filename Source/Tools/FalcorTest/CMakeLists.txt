@@ -56,6 +56,8 @@ target_sources(FalcorTest PRIVATE
     Tests/Rendering/Materials/RGLAcquisitionTests.cpp
     Tests/Rendering/Materials/MicrofacetTests.cpp
     Tests/Rendering/Materials/MicrofacetTests.cs.slang
+    Tests/Rendering/SurfelReSTIRGITests.cpp
+    Tests/Rendering/SurfelReSTIRGITests.cs.slang
 
     Tests/Sampling/AliasTableTests.cpp
     Tests/Sampling/AliasTableTests.cs.slang
@@ -179,5 +181,6 @@ target_sources(FalcorTest PRIVATE
 target_link_libraries(FalcorTest PRIVATE args)
 
 target_copy_shaders(FalcorTest .)
+add_dependencies(FalcorTest SurfelReSTIRGI)
 
 target_source_group(FalcorTest "Tools")

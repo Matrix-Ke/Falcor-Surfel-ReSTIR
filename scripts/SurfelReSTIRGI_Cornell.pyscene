@@ -1,0 +1,32 @@
+# Cornell box with Lambertian materials and an analytic point light.
+quad = TriangleMesh.createQuad()
+cube = TriangleMesh.createCube()
+
+
+def add_surface(name, mesh, color, scale, position, rotation=float3(0)):
+    material = PBRTDiffuseMaterial(name)
+    material.baseColor = float4(color[0], color[1], color[2], 1)
+    transform = Transform(scaling=float3(*scale), translation=float3(*position), rotationEulerDeg=rotation)
+    sceneBuilder.addMeshInstance(sceneBuilder.addNode(name, transform), sceneBuilder.addTriangleMesh(mesh, material))
+
+
+white = (0.73, 0.73, 0.73)
+add_surface("Floor", quad, white, (2, 1, 2), (0, 0, 0))
+add_surface("Ceiling", quad, white, (2, 1, 2), (0, 2, 0), float3(180, 0, 0))
+add_surface("Back wall", quad, white, (2, 1, 2), (0, 1, -1), float3(90, 0, 0))
+add_surface("Red wall", quad, (0.68, 0.07, 0.05), (2, 1, 2), (-1, 1, 0), float3(0, 0, -90))
+add_surface("Green wall", quad, (0.08, 0.58, 0.12), (2, 1, 2), (1, 1, 0), float3(0, 0, 90))
+add_surface("Tall block", cube, white, (0.58, 1.15, 0.60), (-0.33, 0.575, -0.28), float3(0, -21, 0))
+add_surface("Short block", cube, white, (0.56, 0.54, 0.56), (0.39, 0.27, 0.40), float3(0, 17, 0))
+
+light = PointLight("Ceiling light")
+light.position = float3(-0.22, 1.85, -0.18)
+light.intensity = float3(13, 13, 13)
+sceneBuilder.addLight(light)
+
+camera = Camera()
+camera.position = float3(0, 1, 3.65)
+camera.target = float3(0, 1, 0)
+camera.up = float3(0, 1, 0)
+camera.focalLength = 35
+sceneBuilder.addCamera(camera)

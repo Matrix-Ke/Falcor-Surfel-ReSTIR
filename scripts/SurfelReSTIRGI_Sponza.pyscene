@@ -1,0 +1,23 @@
+import os
+
+# Resolve the local Sponza asset from this scene's directory. An override can
+# point to another copy of the same glTF and its companion files.
+sceneBuilder.importScene(
+    os.environ.get(
+        "FALCOR_SPONZA_GLTF",
+        "../../ReSTIR_PT-master/Source/Mogwai/Data/Sponza/Sponza.gltf",
+    )
+)
+
+sun = DirectionalLight("Atrium sunlight")
+sun.direction = float3(-0.45, -5, -0.25)
+sun.intensity = float3(6, 6, 6)
+sceneBuilder.addLight(sun)
+
+camera = Camera("Atrium")
+camera.position = float3(4.71589, 1.19076, -0.36666)
+camera.target = float3(-41.87893, 2.96575, -1.46289)
+camera.up = float3(0, 1, 0)
+camera.focalLength = 35
+sceneBuilder.addCamera(camera)
+sceneBuilder.selectedCamera = camera
